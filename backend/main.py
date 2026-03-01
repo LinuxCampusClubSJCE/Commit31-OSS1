@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-import uvicorn
+from routes.tasks import router as tasks_router
 
 app = FastAPI()
 
@@ -7,5 +7,5 @@ app = FastAPI()
 def home():
     return {"message": "hello world"}
 
-if __name__ == "__main__":
-    uvicorn.run("main:app", reload=True)
+# Include versioned task routes
+app.include_router(tasks_router)
