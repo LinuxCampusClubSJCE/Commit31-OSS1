@@ -26,8 +26,15 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
+}
+
+/* small breathing room on narrow screens */
+#root {
+  width: 100%;
+  padding: 1rem;
 }
 
 h1 {
