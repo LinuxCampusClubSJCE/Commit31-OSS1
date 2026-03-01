@@ -7,7 +7,7 @@ class TaskInputSchema(BaseModel):
     title: str
     description: Optional[str] = None
     status: str
-    priority: str
+    priority: str = "medium"
 
 class TaskOutputSchema(TaskInputSchema):
     id: int

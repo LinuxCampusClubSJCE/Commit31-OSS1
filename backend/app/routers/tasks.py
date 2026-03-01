@@ -47,9 +47,9 @@ def create_task(task: TaskInputSchema, db: Session = Depends(get_db)):
         db.commit()
         db.refresh(db_task)
         return db_task
-    except SQLAlchemyError as e:
+    except SQLAlchemyError as err:
         db.rollback()
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="An error occurred while saving the task. Please try again."
-        )
+        ) from err
