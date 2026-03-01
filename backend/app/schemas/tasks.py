@@ -14,3 +14,6 @@ class TaskOutputSchema(TaskInputSchema):
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
+
+class TaskUpdateSchema(BaseModel):
+    status: str
