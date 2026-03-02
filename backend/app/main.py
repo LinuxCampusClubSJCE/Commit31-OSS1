@@ -1,18 +1,10 @@
 from fastapi import FastAPI
-import uvicorn
-
-from .database import engine, Base
-from . import models
-
-Base.metadata.create_all(bind=engine)
+from app.routes.tasks import router as tasks_router
 
 app = FastAPI()
-
 
 @app.get("/")
 def home():
     return {"message": "hello world"}
 
-
-if __name__ == "__main__":
-    uvicorn.run("app.main:app", reload=True)
+app.include_router(tasks_router)
