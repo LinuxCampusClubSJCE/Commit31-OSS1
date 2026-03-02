@@ -118,3 +118,35 @@ main {
 a {
   transition: color 160ms ease, text-decoration 160ms ease;
 }
+
+/* ── TaskCard ─────────────────────────────────────────────── */
+.task-card {
+  background-color: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+  color: #e2e8f0;
+  transition: background-color 160ms ease, box-shadow 160ms ease;
+}
+
+
+.task-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.4rem;
+}
+
+.task-card-badge {
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  border: 1px solid;
+  white-space: nowrap;
+}
+
