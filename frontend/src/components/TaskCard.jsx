@@ -14,7 +14,7 @@ const DEFAULT_COLOR = '#94a3b8'
 export function TaskCard({ task }) {
   if (!task || task.id === undefined || task.title === undefined || Object.keys(task).length === 0) return null
 
-  const priority = (task.priority || '').toLowerCase()
+  const priority = String(task.priority ?? '').trim().toLowerCase()
   const color = PRIORITY_COLORS[priority] ?? DEFAULT_COLOR
 
   return (
