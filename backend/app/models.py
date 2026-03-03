@@ -10,5 +10,6 @@ class Task(Base):
     title = Column(String, nullable=False)
     description = Column(String, nullable=True)
     status = Column(String, nullable=False)
-    priority = Column(String, nullable=True)
+    priority = Column(String, nullable=False, default="medium",server_default="medium")
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+    
