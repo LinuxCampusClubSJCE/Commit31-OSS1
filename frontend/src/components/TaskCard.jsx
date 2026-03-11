@@ -1,41 +1,65 @@
-/** TaskCard - Renders a task with visual differentiation by priority. */
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-// Priority to color mapping for urgency-based visual differentiation
-const PRIORITY_COLORS = {
-  high: '#EF4444',
-  medium: '#F59E0B',
-  low: '#10B981',
+const PRIORITY_LABEL = {
+  high: 'HIGH PRIORITY',
+  medium: 'MEDIUM PRIORITY',
+  low: 'LOW PRIORITY',
 }
 
-// Fallback for unexpected priority values
-const DEFAULT_COLOR = '#94a3b8'
+const AVATAR_COLORS = [
+  'linear-gradient(135deg,#6366f1,#8b5cf6)',
+  'linear-gradient(135deg,#0ea5e9,#6366f1)',
+  'linear-gradient(135deg,#f59e0b,#ef4444)',
+  'linear-gradient(135deg,#10b981,#0ea5e9)',
+  'linear-gradient(135deg,#ec4899,#8b5cf6)',
+]
+
+function formatDate(dateStr) {
+  if (!dateStr) return null
+  const d = new Date(dateStr)
+  if (isNaN(d)) return dateStr
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+}
 
 export function TaskCard({ task }) {
-  if (!task || task.id === undefined || task.title === undefined || Object.keys(task).length === 0) return null
-
-  const priority = String(task.priority ?? '').trim().toLowerCase()
-  const color = PRIORITY_COLORS[priority] ?? DEFAULT_COLOR
+  const navigate = useNavigate()
+  const priority = (task.priority ?? '').toLowerCase()
+  const priorityClass = ['high', 'medium', 'low'].includes(priority) ? priority : 'unknown'
+  const badgeLabel = PRIORITY_LABEL[priority] ?? 'PRIORITY UNKNOWN'
+  const avatarGradient = AVATAR_COLORS[task.id % AVATAR_COLORS.length]
 
   return (
     <article
-      className="task-card"
-      style={{
-        borderLeft: `10px solid ${color}`,
-      }}
+      className={`task-card priority-${priorityClass}`}
+      onClick={() => navigate(`/tasks/${task.id}`)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === 'Enter' && navigate(`/tasks/${task.id}`)}
     >
-      <div className="task-card-header">
-        <Link to={`/tasks/${task.id}`}>{task.title}</Link>
-        <span
-          className="task-card-badge"
-          style={{
-            backgroundColor: `${color}20`,
-            color,
-            borderColor: color,
-          }}
-        >
-          {priority || 'unknown'}
-        </span>
+      <div className="task-card-left">
+        <div className="task-card-top">
+          <span className={`task-priority-badge badge-${priorityClass}`}>{badgeLabel}</span>
+          <span className="task-id-label">#{task.id ? `TM-${String(task.id).padStart(3, '0')}` : ''}</span>
+        </div>
+        <div className="task-card-title">{task.title}</div>
+        <div className="task-card-meta">
+          {task.due_date && (
+            <span>🗓 {formatDate(task.due_date)}</span>
+          )}
+          {task.created_at && !task.due_date && (
+            <span>🗓 {formatDate(task.created_at)}</span>
+          )}
+          {task.description && (
+            <span>💬 {task.description.length}</span>
+          )}
+        </div>
+      </div>
+
+      <div className="task-card-right">
+        <div className="task-assignee-avatar" style={{ background: avatarGradient }}>
+          {task.title?.charAt(0).toUpperCase()}
+        </div>
+        <span className="task-card-arrow">›</span>
       </div>
     </article>
   )

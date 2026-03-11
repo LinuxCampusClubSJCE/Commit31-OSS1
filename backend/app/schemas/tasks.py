@@ -20,12 +20,26 @@ class TaskPriority(str, Enum):
 class TaskCreate(BaseModel):
     title: str
     description: Optional[str] = None
-    status: TaskStatus
+    status: TaskStatus = TaskStatus.todo
     priority: Optional[TaskPriority] = None
+    due_date: Optional[str] = None
 
 
-class TaskResponse(TaskCreate):
+class TaskUpdate(BaseModel):
+    title: Optional[str] = None
+    description: Optional[str] = None
+    status: Optional[TaskStatus] = None
+    priority: Optional[TaskPriority] = None
+    due_date: Optional[str] = None
+
+
+class TaskResponse(BaseModel):
     id: int
+    title: str
+    description: Optional[str] = None
+    status: str
+    priority: Optional[str] = None
+    due_date: Optional[str] = None
     created_at: datetime
 
     class Config:
