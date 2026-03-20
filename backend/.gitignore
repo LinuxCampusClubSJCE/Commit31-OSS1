@@ -18,7 +18,7 @@ eggs/
 lib/
 lib64/
 parts/
-sdist/
+sdist/ 
 var/
 wheels/
 share/python-wheels/
@@ -141,3 +141,9 @@ dmypy.json
 cython_debug/
 
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Python
+
+
+# Ignore uv files 
+uv.lock
+.python-version
+pyproject.toml

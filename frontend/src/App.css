@@ -87,6 +87,25 @@ main {
   margin: 0 0 0.75rem 0;
   font-size: 2rem;
 }
+
+.board-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.board-column {
+  min-height: 200px;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.board-column h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+}
 .task-details header h2 {
   margin: 0 0 0.5rem 0;
   font-size: 1.25rem;
@@ -149,4 +168,3 @@ a {
   border: 1px solid;
   white-space: nowrap;
 }
-
