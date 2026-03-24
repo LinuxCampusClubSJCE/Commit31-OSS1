@@ -1,4 +1,4 @@
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI,HTTPException,status
 from sqlalchemy.orm import Session
 import uvicorn
 
@@ -27,5 +27,17 @@ def create_task(payload: TaskCreate, db: Session = Depends(get_db)):
     db.refresh(task)
     return task
 
+@app.delete("/task/{task_id}",status_code=204)
+def delete_task(task_id=int,db:Session=Depends(get_db)):
+    task=db.query(Task).filter(Task.id==task_id).first()
+    if not task:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Task with {task_id} not found",
+        )
+    else:
+        db.delete(task)
+        db.commit()
+        
 if __name__ == "__main__":
     uvicorn.run("app.main:app", reload=True)
