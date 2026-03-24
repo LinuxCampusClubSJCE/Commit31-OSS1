@@ -149,4 +149,16 @@ a {
   border: 1px solid;
   white-space: nowrap;
 }
-
+.del_btn{
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1em;
+  padding: 4px 10px;
+  opacity: 0;
+}
+.del_btn:hover{
+  opacity: 1;
+  color: red;
+  
+}

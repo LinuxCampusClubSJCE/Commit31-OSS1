@@ -11,7 +11,7 @@ const PRIORITY_COLORS = {
 // Fallback for unexpected priority values
 const DEFAULT_COLOR = '#94a3b8'
 
-export function TaskCard({ task }) {
+export function TaskCard({ task,onDelete }) {
   if (!task || task.id === undefined || task.title === undefined || Object.keys(task).length === 0) return null
 
   const priority = String(task.priority ?? '').trim().toLowerCase()
@@ -34,9 +34,20 @@ export function TaskCard({ task }) {
             borderColor: color,
           }}
         >
+        <button
+          className='del_btn'
+          onClick={()=>onDelete(task.id)}
+          title='Delete Task'>
           {priority || 'unknown'}
+        </button>
         </span>
       </div>
     </article>
   )
 }
+const handleDelete = async (id) => {
+  const response = await fetch(`/tasks/${id}`, { method: 'DELETE' });
+  if (response.ok) {
+  }
+}
+{tasks.map(t => <TaskCard key={t.id} task={t} onDelete={handleDelete} />)}
